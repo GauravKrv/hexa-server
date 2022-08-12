@@ -4,17 +4,16 @@ const mongoose = require('mongoose')
 require('dotenv').config()
 const cors = require('cors')
 const app = express();
-
+const url = process.env.URL
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
 app.use(cors({
     origin:'http://localhost:3000',
     credentials:true,
 }))
-const dbconfig = require('./config/database.config')
 mongoose.Promise = global.Promise
 
-mongoose.connect(dbconfig.url, {
+mongoose.connect(url, {
     useNewUrlParser:true,
     useUnifiedTopology:true,
 })
