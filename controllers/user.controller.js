@@ -1,5 +1,5 @@
 const User = require('../model/user.model')
-
+const axios = require('axios')
 exports.details = async (req,res) => {
     User.find().then((user,index)=>{
             res.send(user)
@@ -10,6 +10,16 @@ exports.details = async (req,res) => {
         });
       });
 }
+// first 
+exports.detailId = async (req,res) => {
+    const id = req.params.id
+   const udata = await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`)
+//    console.log(udata);
+   const dobj = udata.data;
+    res.send({zipcode:dobj.address.zipcode, companyname:dobj.company.name, number:dobj.phone})
+
+};
+   
 
 exports.home = (req,res) => {
     res.json({
